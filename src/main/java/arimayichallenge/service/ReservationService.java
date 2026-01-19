@@ -4,6 +4,7 @@ import arimayichallenge.domain.reservation.Reservation;
 import arimayichallenge.domain.reservation.ReservationStatus;
 import arimayichallenge.domain.resource.Resource;
 import arimayichallenge.domain.user.User;
+import arimayichallenge.exception.BusinessException;
 import arimayichallenge.exception.ConflictException;
 import arimayichallenge.exception.NotFoundException;
 import arimayichallenge.repository.ReservationRepository;
@@ -33,6 +34,10 @@ public class ReservationService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
+
+        if (!user.isActive()) {
+            throw new BusinessException("User is DEACTIVATED");
+        }
 
         Resource resource = resourceRepository.findByIdForUpdate(resourceId)
                 .orElseThrow(() -> new NotFoundException("Resource not found"));
