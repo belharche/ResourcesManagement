@@ -18,7 +18,38 @@ Ce projet implémente une API REST backend en Java et Spring Boot permettant la 
 
 - Docker & Docker Compose
 
-**Règles métier retenues**
+**Architecture:**
+
+- Les contrôleurs exposent l’API REST
+
+- La logique métier est centralisée dans la couche service
+
+- Les repositories gèrent l’accès aux données
+
+- Les entités JPA représentent le modèle métier
+
+- Les règles critiques sont protégées par des transactions
+
+Cette organisation rend le système lisible, testable et maintenable.
+
+**Fonctionnalités principales:**
+
+- Gestion des utilisateurs
+
+- Gestion des ressources
+
+- Création et annulation de réservations temporelles
+
+- Consultation de la disponibilité d’une ressource
+
+**Endpoints (vue d’ensemble):**
+
+- /api/v1/users
+- /api/v1/resources
+- /api/v1/reservations
+- /api/v1/resources/{id}/availability
+
+**Règles métier retenues:**
 
 - Les règles suivantes ont été identifiées, formalisées et implémentées :
 
@@ -42,7 +73,7 @@ Ce projet implémente une API REST backend en Java et Spring Boot permettant la 
 
 Deux utilisateurs peuvent tenter de réserver la même ressource au même moment.
 
-**Solution mise en place**
+**Solution mise en place:**
 
 - Les opérations de création de réservation sont exécutées dans une transaction
 
@@ -63,20 +94,19 @@ Le projet privilégie des tests d’intégration plutôt que des tests unitaires
 ***
     docker compose build
 ***
-***
     docker compose up -d
-***
 
-**Lancer les tests**
+L’API est accessible sur http://localhost:8080.
+
+**Lancer les tests:**
 
 ***
     mvn test
-***
 
-**Limites connues**
+**Limites connues:**
 
 - Pas d’authentification / autorisation
-
 - Pas de gestion avancée des fuseaux horaires
-
 - Pas de pagination
+
+Ces limites sont volontaires, afin de se concentrer sur la cohérence métier et la gestion de la concurrence.
