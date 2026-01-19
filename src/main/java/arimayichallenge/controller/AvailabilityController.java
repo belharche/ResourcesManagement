@@ -2,6 +2,7 @@ package arimayichallenge.controller;
 
 import arimayichallenge.service.AvailabilityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
